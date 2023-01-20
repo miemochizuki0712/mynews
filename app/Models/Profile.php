@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    use HasFactory;
-    
-    protected $guarded = array('id');
+  use HasFactory;
+  
+  protected $guarded = array('id');
 
-    public static $rules = array(
-        'name' => 'required',
-        'gender' => 'required',
-        'hobby' => 'required',
-        'introduction' => 'required',
-    );
+  public static $rules = array(
+    'name' => 'required',
+    'gender' => 'required',
+    'hobby' => 'required',
+    'introduction' => 'required',
+  );
+  
+ // profile Modelに関連付けを行う
+  public function profile_histories()
+  {
+    return $this->hasMany('App\Models\ProfileHistory');
+  }
 }
