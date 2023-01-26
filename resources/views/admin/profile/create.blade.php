@@ -11,9 +11,9 @@
     <div class="row">
       <div class="col-md-8 mx-auto">
         <h2>My プロフィール</h2>
-              
+        {{--routeの中身はweb.phpのnameを表す→→profile/createへアクセスする--}}   
         <form action="{{ route('admin.profile.create') }}" method="post" enctype="multipart/form-data">
-
+　　　　
           @if (count($errors) > 0)
             <ul>
               @foreach($errors->all() as $e)
@@ -53,9 +53,7 @@
             </div>
           </div>
           @csrf
-          <input type="submit" class="btn btn-primary" value="更新">
-      
-{{--氏名(name)、性別(gender)、趣味(hobby)、自己紹介欄(introduction)--}}
+          <input type="submit" class="btn btn-primary" value="新規作成">
         </form>  
       </div>
     </div>

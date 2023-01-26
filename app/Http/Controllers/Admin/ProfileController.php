@@ -11,10 +11,10 @@ use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
-  //
   public function add()
   {
     return view('admin.profile.create');
+    //viewファイルの場所を指定して、使うファイルを示している・・・.を使う
   }
 
   public function create(Request $request)
@@ -31,7 +31,8 @@ class ProfileController extends Controller
     $profile->fill($form);
     $profile->save();
 
-    return redirect('admin/profile/create');
+    return redirect('admin/profile/create'); //Myプロフィール（新規作成の画面になる）
+    //redirectはURLにアクセスする・・・/を使う
   }
 
   public function edit(Request $request)
@@ -41,7 +42,7 @@ class ProfileController extends Controller
     if (empty($profile)) {
       abort(404);
     }
-    return view('admin.profile.edit', ['profile_form' => $profile]);
+    return view('admin.profile.edit' ,['profile_form' => $profile]);
   }
 
   public function update(Request $request)
@@ -67,6 +68,17 @@ class ProfileController extends Controller
    return redirect('admin/profile');
   }
   
+
+  public function delete(Request $request)
+  {
+    // 該当するNews Modelを取得
+    $profile = Profile::find($request->id);
+
+    // 削除する
+    $profile->delete();
+
+    return redirect('admin/profile');
+  }
   public function index(Request $request)
   {
     $cond_title = $request->cond_title;
@@ -76,18 +88,8 @@ class ProfileController extends Controller
     } else {
       // それ以外はすべてのニュースを取得する
       $posts = Profile::all();
+      return view('admin.profile.index', ['posts' => $posts, 'cond_title' => $cond_title]);
     }
-    return view('admin.profile.index', ['posts' => $posts, 'cond_title' => $cond_title]);
-  }
-  
-  public function delete(Request $request)
-  {
-    // 該当するNews Modelを取得
-    $profile = Profile::find($request->id);
-
-    // 削除する
-    $profile->delete();
-
-    return redirect('admin/profile/');
+    
   }
 }

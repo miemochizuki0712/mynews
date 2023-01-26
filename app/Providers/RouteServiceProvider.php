@@ -34,6 +34,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
+            // 追加箇所
+                ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
     }
