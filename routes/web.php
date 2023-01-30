@@ -28,10 +28,6 @@ Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middl
 });
 
 
-// Route::controller(AAAController::class)->group(function(){
-//     Route::get('XXX','bbb');
-// });
-
 use App\Http\Controllers\Admin\ProfileController; //管理者側プロフィール編集
 Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function(){
   Route::get('profile/create','add')->name('profile.add');
@@ -46,8 +42,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-use App\Http\Controllers\NewsController as PublicNewsController; //閲覧者側ニュース表示
+//閲覧者側ニュース表示
+use App\Http\Controllers\NewsController as PublicNewsController; 
 Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
 
-use App\Http\Controllers\ProfileController as PublicProfileController; //閲覧者側プロフィール一覧
+//閲覧者側プロフィール一覧
+use App\Http\Controllers\ProfileController as PublicProfileController; 
 Route::get('profile', [PublicProfileController::class, 'index'])->name('public_profile.index');
